@@ -85,9 +85,8 @@ func getWalkFunc(dir string) filepath.WalkFunc {
 
 func setupCli() error {
 	app := cli.App("lu", "display line usage statistics")
-	app.Spec = "[-s] [-c] [-h] DIRS..."
+	app.Spec = "[-s] [-c] DIRS..."
 	grandTotal := app.BoolOpt("c", false, "Display a grand total.")
-	humanReadable := app.BoolOpt("h", false, "\"Human-readable\" output.")
 	selectedOnly := app.BoolOpt("s", false, "Display an entry for each specified file.")
 	dirs := app.Strings(cli.StringsArg{
 		Name: "DIRS",
@@ -120,7 +119,6 @@ func setupCli() error {
 			}
 		}
 
-		_ = humanReadable
 		total := 0
 		if *selectedOnly {
 			for dir, count := range dirCounts {
